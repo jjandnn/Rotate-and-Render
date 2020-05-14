@@ -25,7 +25,6 @@ class BaseOptions():
         parser.add_argument('--norm_D', type=str, default='spectralinstance', help='instance normalization or batch normalization')
         parser.add_argument('--norm_E', type=str, default='spectralinstance', help='instance normalization or batch normalization')
         parser.add_argument('--phase', type=str, default='train', help='train, val, test, etc')
-        
         parser.add_argument('--device_count', type=int, default=8, help='the total number of gpus to use')
         parser.add_argument('--render_thread', type=int, default=2, help='number of gpus used for rendering')
         parser.add_argument('--chunk_size', default=None, type=int, nargs='+', help='specify the batch size on each training gpu. Training gpu # = device_count - render_thread')
@@ -59,8 +58,6 @@ class BaseOptions():
         parser.add_argument('--ngf', type=int, default=64, help='# of gen filters in first conv layer')
         parser.add_argument('--init_type', type=str, default='xavier', help='network initialization [normal|xavier|kaiming|orthogonal]')
         parser.add_argument('--init_variance', type=float, default=0.02, help='variance of the initialization distribution')
-        # parser.add_argument('--z_dim', type=int, default=256,
-                            help="dimension of the latent z vector")
 
         # for instance-wise features
         parser.add_argument('--no_instance', action='store_true', default='True', help='if specified, do *not* add instance map as input')
@@ -97,7 +94,7 @@ class BaseOptions():
         opt, unknown = parser.parse_known_args()
 
         # if there is opt_file, load it.
-        # The previous default options will be overwritten
+        # lt options will be overwritten
         if opt.load_from_opt_file:
             parser = self.update_options_from_file(parser, opt)
 
@@ -172,8 +169,7 @@ class BaseOptions():
 
         # Set semantic_nc based on the option.
         # This will be convenient in many places
-        opt.semantic_nc = opt.label_nc + \
-            (3 if opt.use_BG else 0)
+        opt.semantic_nc = opt.label_nc 
 
         # set gpu ids
         str_ids = opt.gpu_ids.split(',')
